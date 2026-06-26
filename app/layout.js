@@ -40,10 +40,16 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-        {/* Material Symbols icon font — via link tag for reliability across all browsers */}
+        {/* Preconnect — tells the browser to open a socket to Google Fonts early
+            so the icon font starts downloading as soon as possible. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Material Symbols — display=block hides the raw ligature text (e.g.
+            "shopping_bag") while the font is loading instead of flashing it. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
           crossOrigin="anonymous"
         />
       </head>

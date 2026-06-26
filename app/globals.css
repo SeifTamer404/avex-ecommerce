@@ -52,6 +52,10 @@
     font-feature-settings: "liga";
     -webkit-font-feature-settings: "liga";
     -webkit-font-smoothing: antialiased;
+    /* Prevent the raw ligature text (e.g. "shopping_bag") from flashing
+       before the icon font finishes loading. opacity:0 hides it instantly;
+       once the font is ready the glyph renders and becomes visible. */
+    font-display: block;
   }
 }
 
