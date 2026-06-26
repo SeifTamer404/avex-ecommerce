@@ -181,13 +181,13 @@ export default function CartPage() {
           <div className="mt-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-150 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-150 group"
               style={{ color: "var(--color-primary)" }}
             >
               <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>
                 arrow_back
               </span>
-              Continue Shopping
+              <span className="group-hover:underline">Continue Shopping</span>
             </Link>
           </div>
         </section>
