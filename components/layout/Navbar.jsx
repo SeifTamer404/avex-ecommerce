@@ -86,7 +86,7 @@ export default function Navbar() {
   const handleProductClick = (slug) => {
     setIsDropdownOpen(false);
     dispatch(uiActions.setSearchQuery(""));
-    router.push(`/product/${slug}`);
+    router.push(`/products/${slug}`);
   };
 
   const handleCartOpen = () => {

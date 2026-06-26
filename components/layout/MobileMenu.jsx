@@ -89,18 +89,23 @@ export default function MobileMenu() {
     return () => clearTimeout(timer);
   }, [localQuery]);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+  const navigateToSearch = () => {
     if (localQuery.trim()) {
       handleClose();
+      setLocalQuery("");
       router.push(`/search?q=${encodeURIComponent(localQuery.trim())}`);
     }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    navigateToSearch();
   };
 
   const handleProductClick = (slug) => {
     handleClose();
     setLocalQuery("");
-    router.push(`/product/${slug}`);
+    router.push(`/products/${slug}`);
   };
 
   // ── Logout ────────────────────────────────────────────────────────────────────
@@ -159,16 +164,16 @@ export default function MobileMenu() {
         style={{
           position: "fixed",
           top: 0,
-          left: 0,
+          right: 0,
           bottom: 0,
           zIndex: 999,
           width: "min(320px, 90vw)",
           display: "flex",
           flexDirection: "column",
           backgroundColor: "var(--color-surface)",
-          borderRight: "1px solid var(--color-outline-variant)",
-          boxShadow: "8px 0 40px rgba(0,0,0,0.22)",
-          transform: isSidebarOpen ? "translateX(0)" : "translateX(-100%)",
+          borderLeft: "1px solid var(--color-outline-variant)",
+          boxShadow: "-8px 0 40px rgba(0,0,0,0.22)",
+          transform: isSidebarOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.35s cubic-bezier(0.2,0,0,1)",
           overflowY: "auto",
           overflowX: "hidden",
@@ -301,48 +306,75 @@ export default function MobileMenu() {
                   Searching...
                 </div>
               ) : (
-                searchResults.map((product) => (
+                <>
+                  {searchResults.map((product) => (
+                    <button
+                      key={product.id}
+                      onClick={() => handleProductClick(product.slug)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.75rem",
+                        padding: "0.65rem 0.85rem",
+                        width: "100%",
+                        background: "none",
+                        border: "none",
+                        borderBottom: "1px solid var(--color-outline-variant)",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        transition: "background 0.15s",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-primary)12")}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                    >
+                      <div style={{
+                        width: 38, height: 38, borderRadius: "0.5rem",
+                        overflow: "hidden", background: "var(--color-surface-highest)",
+                        flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                      }}>
+                        {product.image ? (
+                          <Image src={product.image} alt={product.name} width={38} height={38}
+                            style={{ objectFit: "cover", width: "100%", height: "100%" }} />
+                        ) : (
+                          <span className="material-symbols-outlined" style={{ fontSize: "1rem", opacity: 0.3 }}>image</span>
+                        )}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ margin: 0, fontSize: "0.82rem", fontWeight: 600, color: "var(--color-inverted-bg)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {product.name}
+                        </p>
+                        <p style={{ margin: 0, fontSize: "0.78rem", fontWeight: 700, color: "var(--color-primary)" }}>
+                          ${product.price?.toFixed(2)}
+                        </p>
+                      </div>
+                    </button>
+                  ))}
+                  {/* View all results link */}
                   <button
-                    key={product.id}
-                    onClick={() => handleProductClick(product.slug)}
+                    onClick={navigateToSearch}
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.75rem",
-                      padding: "0.65rem 0.85rem",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                      padding: "0.7rem 1rem",
                       width: "100%",
-                      background: "none",
+                      background: "var(--color-primary)10",
                       border: "none",
-                      borderBottom: "1px solid var(--color-outline-variant)",
                       cursor: "pointer",
-                      textAlign: "left",
+                      color: "var(--color-primary)",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
                       transition: "background 0.15s",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-primary)12")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-primary)20")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--color-primary)10")}
                   >
-                    <div style={{
-                      width: 38, height: 38, borderRadius: "0.5rem",
-                      overflow: "hidden", background: "var(--color-surface-highest)",
-                      flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>
-                      {product.image ? (
-                        <Image src={product.image} alt={product.name} width={38} height={38}
-                          style={{ objectFit: "cover", width: "100%", height: "100%" }} />
-                      ) : (
-                        <span className="material-symbols-outlined" style={{ fontSize: "1rem", opacity: 0.3 }}>image</span>
-                      )}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ margin: 0, fontSize: "0.82rem", fontWeight: 600, color: "var(--color-inverted-bg)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {product.name}
-                      </p>
-                      <p style={{ margin: 0, fontSize: "0.78rem", fontWeight: 700, color: "var(--color-primary)" }}>
-                        ${product.price?.toFixed(2)}
-                      </p>
-                    </div>
+                    <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>search</span>
+                    View all results for &quot;{localQuery}&quot;
+                    <span className="material-symbols-outlined" style={{ fontSize: "0.9rem" }}>arrow_forward</span>
                   </button>
-                ))
+                </>
               )}
             </div>
           )}
