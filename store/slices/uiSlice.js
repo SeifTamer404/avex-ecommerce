@@ -23,6 +23,10 @@ const uiSlice = createSlice({
       state.isSidebarOpen = !state.isSidebarOpen;
     },
 
+    setIsSidebarOpen(state, action) {
+      state.isSidebarOpen = action.payload;
+    },
+
     setSearchQuery(state, action) {
       state.searchQuery = action.payload;
     },

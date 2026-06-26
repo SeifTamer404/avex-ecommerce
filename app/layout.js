@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import BottomNav from "@/components/layout/BottomNav";
 import CartDrawer from "@/components/layout/CartDrawer";
+import MobileMenu from "@/components/layout/MobileMenu";
 import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
@@ -61,6 +62,7 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <Navbar />
+          <MobileMenu />
           <CartDrawer />
           <NotificationContainer />
           <main className="pt-24 pb-24 md:pb-8 px-4 md:px-8">{children}</main>
