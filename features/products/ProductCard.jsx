@@ -76,7 +76,7 @@ export default function ProductCard({ product }) {
     <Link
       href={`/products/${slug}`}
       className={[
-        "group relative flex flex-col",
+        "group relative flex h-full min-w-0 flex-col",
         "bg-[var(--color-surface-low)]",
         "border border-[var(--color-outline-variant)]/20",
         "rounded-2xl overflow-hidden",
@@ -87,7 +87,7 @@ export default function ProductCard({ product }) {
       ].join(" ")}
     >
       {/* ── Image ───────────────────────────────────────────────────────────── */}
-      <div className="relative w-full aspect-square bg-[var(--color-surface-highest)] overflow-hidden">
+      <div className="relative w-full aspect-square shrink-0 bg-[var(--color-surface-highest)] overflow-hidden">
         {image ? (
           <Image
             src={image}
@@ -137,24 +137,26 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* ── Info ────────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-1.5 p-3.5">
+      <div className="flex flex-1 flex-col gap-1.5 p-3.5">
         {/* Name */}
-        <h3 className="text-sm font-semibold text-[var(--color-inverted-bg)] leading-snug line-clamp-2 font-display">
+        <h3 className="min-h-[2.75em] text-sm font-semibold text-[var(--color-inverted-bg)] leading-snug line-clamp-2 font-display">
           {name}
         </h3>
 
         {/* Rating row */}
-        {rating > 0 && (
-          <div className="flex items-center gap-1.5">
-            <StarRating rating={rating} />
-            <span className="text-[11px] text-[var(--color-inverted-bg)]/40">
-              ({reviewCount.toLocaleString()})
-            </span>
-          </div>
-        )}
+        <div className="flex min-h-5 items-center gap-1.5">
+          {rating > 0 && (
+            <>
+              <StarRating rating={rating} />
+              <span className="text-[11px] text-[var(--color-inverted-bg)]/40">
+                ({reviewCount.toLocaleString()})
+              </span>
+            </>
+          )}
+        </div>
 
         {/* Price row */}
-        <div className="flex items-baseline gap-2 mt-0.5">
+        <div className="mt-auto flex min-h-6 items-baseline gap-2 pt-0.5">
           <span className="text-base font-extrabold text-[var(--color-inverted-bg)] font-display tracking-tight">
             {formatPrice(price)}
           </span>
