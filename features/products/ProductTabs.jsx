@@ -40,21 +40,23 @@ export default function ProductTabs() {
   const [active, setActive] = useState("specs");
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex min-w-0 flex-col gap-4">
       {/* Tab strip */}
       <div
         role="tablist"
-        className="flex gap-1 border-b border-[var(--color-outline-variant)]/20"
+        aria-label="Product information"
+        className="flex min-w-0 gap-1 overflow-x-auto border-b border-[var(--color-outline-variant)]/20"
       >
         {TABS.map(({ key, label }) => (
           <button
             key={key}
+            type="button"
             role="tab"
             aria-selected={active === key}
             onClick={() => setActive(key)}
             className={[
-              "px-4 py-2.5 text-sm font-semibold transition-all duration-200",
-              "border-b-2 -mb-px",
+              "min-h-11 shrink-0 whitespace-nowrap px-2 py-2.5 text-xs font-semibold transition-colors duration-200 sm:px-4 sm:text-sm",
+              "border-b-2",
               active === key
                 ? "border-[var(--color-primary)] text-[var(--color-primary)]"
                 : "border-transparent text-[var(--color-inverted-bg)]/45 hover:text-[var(--color-inverted-bg)]/70",

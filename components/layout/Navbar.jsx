@@ -375,7 +375,7 @@ export default function Navbar({ variant = "light" }) {
 
       {/* MOBILE MENU PORTAL */}
       {menuMounted && (
-        <div className="fixed inset-0 z-[100] md:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-[100] md:hidden" role="dialog" aria-modal="true" aria-label="Main navigation menu">
           <button
             aria-label="Close menu"
             onClick={() => setMenuOpen(false)}
@@ -387,7 +387,7 @@ export default function Navbar({ variant = "light" }) {
 
           <div
             className={[
-              "absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-[var(--color-surface)] shadow-2xl transition-[transform,opacity] duration-500 ease-[var(--ease-kinetic)] will-change-transform",
+              "absolute inset-y-0 right-0 flex w-[min(320px,90vw)] flex-col overflow-y-auto bg-[var(--color-surface)] shadow-2xl transition-[transform,opacity] duration-500 ease-[var(--ease-kinetic)] will-change-transform",
               menuEntered ? "translate-x-0 opacity-100" : "translate-x-full opacity-95",
             ].join(" ")}
           >
@@ -407,7 +407,7 @@ export default function Navbar({ variant = "light" }) {
               </button>
             </div>
 
-            <nav className="flex flex-1 flex-col justify-center px-8">
+            <nav className="flex flex-1 flex-col justify-center px-6 py-6">
               <ul className="space-y-2">
                 {[
                   { href: "/", label: "Home", num: "01" },
@@ -430,7 +430,7 @@ export default function Navbar({ variant = "light" }) {
                       <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-inverted-bg)]/40">
                         {item.num}
                       </span>
-                      <span className="font-display font-bold text-4xl leading-none transition-colors group-hover:text-primary text-[var(--color-inverted-bg)]">
+                      <span className="font-display font-bold text-3xl leading-tight transition-colors group-hover:text-primary text-[var(--color-inverted-bg)]">
                         {item.label}
                       </span>
                     </Link>

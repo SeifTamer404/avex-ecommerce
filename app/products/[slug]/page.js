@@ -85,7 +85,7 @@ export default async function ProductPage({ params }) {
   const categoryLabel = CATEGORY_LABELS[product.category] ?? product.category;
 
   return (
-    <div className="flex flex-col gap-12 mt-6">
+    <div className="flex min-w-0 flex-col gap-12 mt-6">
 
       {/* ── Breadcrumb ──────────────────────────────────────────────────────── */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[var(--color-inverted-bg)]/40 flex-wrap">
@@ -220,7 +220,7 @@ export default async function ProductPage({ params }) {
       </div>
 
       {/* ── Tabs ────────────────────────────────────────────────────────────── */}
-      <div className="border border-[var(--color-outline-variant)]/20 rounded-2xl p-6 bg-[var(--color-surface-low)]">
+      <div className="min-w-0 border border-[var(--color-outline-variant)]/20 rounded-2xl p-4 sm:p-6 bg-[var(--color-surface-low)]">
         <ProductTabs />
       </div>
 
@@ -250,7 +250,7 @@ export default async function ProductPage({ params }) {
 
           {/* Horizontal scroll on mobile, grid on desktop */}
           <div
-            className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-3 lg:grid-cols-6"
+            className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 scroll-px-4 md:mx-0 md:px-0 md:scroll-px-0 md:grid md:grid-cols-3 lg:grid-cols-6"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {relatedProducts.map((p) => (
