@@ -319,7 +319,7 @@ AVEX uses **MongoDB Atlas** as its database. Three collections are managed throu
   price:          Number,     // Current selling price
   compareAtPrice: Number,     // Original price — null if not on sale
   category:       String,     // Enum: electronics | fashion | home-living | beauty | groceries | toys
-  images:         [String],   // Array of image URLs (Picsum Photos for seed data)
+  images:         [String],   // Local catalog images from /images/products/
   stock:          Number,     // Available inventory count
   description:    String,     // Long-form product description
   rating:         Number,     // 0–5 average rating
@@ -837,7 +837,7 @@ The seed script populates the database with **100 realistic products** across 6 
 - 3 featured products per category (for homepage row)
 - Ratings between 3.2–5.0 and review counts between 4–1240
 - Stock levels between 0–200
-- Placeholder images from [Picsum Photos](https://picsum.photos) (stable, slug-based URLs)
+- Product-specific catalog images stored locally as optimized 800 × 800 WebP files
 
 ```bash
 npm run seed
@@ -856,6 +856,15 @@ npm run seed
 
 ## 📜 Scripts Reference
 
+Product image mappings and original source URLs are stored in `data/product-images.json`.
+See [image sources](./public/images/products/SOURCES.md) for the original catalog credits.
+The images illustrate the generic demo products; source brands and package specifications may differ.
+
+To refresh images on an existing database, use `npm run images:update` rather than re-seeding.
+The updater validates the local assets, backs up previous image arrays under `.backups/`,
+updates only `images`, and verifies that product IDs and all other product fields are unchanged.
+Run `node scripts/update-product-images.mjs` first for a preview without database changes.
+
 | Script | Command | Description |
 |---|---|---|
 | `dev` | `next dev` | Start development server with hot-reload |
@@ -863,6 +872,9 @@ npm run seed
 | `start` | `next start` | Start production server (requires `build`) |
 | `lint` | `eslint` | Run ESLint on the project |
 | `seed` | `node scripts/seed.mjs` | Wipe + re-seed the products collection |
+| `images:download` | `node scripts/update-product-images.mjs --download` | Download and optimize catalog images locally |
+| `images:update` | `node scripts/update-product-images.mjs --apply` | Back up and update only existing product image arrays |
+| `images:verify` | `node scripts/update-product-images.mjs --verify` | Check all 100 local image assets |
 
 ---
 

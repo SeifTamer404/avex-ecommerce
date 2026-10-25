@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# Local backups created before catalog image updates
+/.backups/
+
 # next.js
 /.next/
 /out/

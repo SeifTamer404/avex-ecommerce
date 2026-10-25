@@ -54,9 +54,16 @@ function randomPrice(min, max) {
   return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 }
 
-// Stable placeholder — same slug always gives same image
+const productImages = new Map(
+  JSON.parse(readFileSync(new URL("../data/product-images.json", import.meta.url), "utf8"))
+    .map(({ slug, image }) => [slug, image]),
+);
+
+// Use the same curated local images as the existing catalog.
 function imageUrl(slug) {
-  return `https://picsum.photos/seed/${slug}/600/600`;
+  const image = productImages.get(slug);
+  if (!image) throw new Error(`No product image configured for ${slug}`);
+  return image;
 }
 
 // ── Category definitions ──────────────────────────────────────────────────────
